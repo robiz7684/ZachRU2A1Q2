@@ -1,0 +1,57 @@
+/*Unit 2, Assignment 1, Question 2
+*Zach Robinson
+*Date Started : 03/04/19
+*For: Ms. Harris and ICS4UI
+*Plays Craps.
+*/
+
+//Variables
+var sum = 0
+var die1 = 0
+var die2 = 0
+var points = 0
+var x = 0 //x and y are for locking the points and the first rolled 7 
+var y = 0
+var outcome = "null"
+var play = ""
+
+print ("Do you want to play Craps?")
+play = readLine()! //unwraps the input
+
+while play.lowercased() == "yes" {
+  die1 = Int.random(in: 1..<7) //rolls the two dice, and adds them
+  die2 = Int.random(in: 1..<7)
+  sum = die1 + die2
+
+  //determining the outcome of the round
+  if sum == 2 || sum == 3 || sum == 12 {
+    outcome = "You Lose!"
+  } else if sum == 7 && y == 0 || sum == 11 {
+    outcome = "You Win!"
+  } else if sum == 7 && y > 0 {
+    outcome = "You Lose!";
+  }else if x == 0 {
+    points = sum
+    x = 1
+    outcome = "null"
+  }else if points == sum {
+    outcome = "You Win!"
+  }
+
+//outputting the roll
+print ("\nYou rolled \(die1) + \(die2) = \(sum)!")
+
+//outputting the rest, whether they won, lost, or what their points are.
+if outcome == "You Win!" || outcome == "You Lose!" {
+    points = 0;
+    x = 0;
+    print(outcome);
+    print("\nDo you want to play again? 'yes' or 'no':")
+    play = readLine()! 
+    outcome = "null"
+    y = 0
+}else {
+    print ("Your points are \(points)!")
+    y = 1
+  }
+}
